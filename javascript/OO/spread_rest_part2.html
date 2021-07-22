@@ -7,29 +7,30 @@
     <title></title>
     <script>
         
-        //contexto spread
+        //contexto rest
 
-        //string
+        function soma(...param){
+            let resultado = 0
 
-        let tituloArtigo = 'Como utilizar o operador rest/spread'
+            //console.log(param)
 
-        console.log(tituloArtigo)
-        console.log(...tituloArtigo)
-        console.log([...tituloArtigo])
+            param.forEach(v => resultado += v)
 
-        //arrays
-        let listaCusos1 = ['NodeJS e MongoDB' ,'ES6, TypeScript e Angular 4'] 
-        let listaCursos2 = ['Multiplataforma Android/IOS', 'Introdução ao GNU/Linux']
-        let listaCursosCompleto = ['Web COmpleto', ...listaCursos2, 'Android Completo', ...listaCusos1, ]
+            return resultado
+        }
 
-        console.log(listaCursosCompleto)
-        
-        //objetos
+        console.log(soma(3, 8, 5, 7, -8, -10, 500))
 
-        let pessoa = {nome: 'João', idade: 27}
-        let clone = {endereco: 'Rua Abc', ...pessoa }
+        function multiplicacao (m, ...p) {
+            //console.log(m)
+            let resultado = 0
+            //console.log(p)
 
-        console.log(clone)
+            p.forEach(v => resultado += m * v)
+            return resultado
+        }
+
+        console.log(multiplicacao(5, 7, 12, 3, 49))
 
     </script>
 </head>
