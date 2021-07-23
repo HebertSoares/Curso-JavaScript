@@ -38,6 +38,30 @@ class Bd {
 
        localStorage.setItem('id', id)
     }
+    recuperarTodosRegistros(){
+
+        // array de despesas
+        let despesas = Array()
+
+        let id = localStorage.getItem('id')
+
+        //recuperar todas as despesas cadastradas em localStorage
+        for (let i = 1; i <= id; i++){
+
+            //recuperar a despesa
+            let despesa = JSON.parse(localStorage.getItem(i)) 
+            
+            //existe a possibilidade de haver indices que foram pulados/removidos
+            //neste caso nós vamos pular esses indices
+            if(despesa === null){
+                continue
+            }
+
+            despesas.push(despesa)
+        }
+
+        return despesas
+    }
 }
 
 let bd = new Bd ()
@@ -59,7 +83,7 @@ function cadastrarDespesa(){
 
         document.getElementById('modal_titulo').innerHTML = 'Registro inserido com sucesso'
         document.getElementById('modal_titulo_div').className = 'modal-header text-success'
-        document.getElementById('modal_conteudo').innerHTML = 'despesa foi cadastrada com sucesso!'
+        document.getElementById('modal_conteudo').innerHTML = 'Despesa foi cadastrada com sucesso!'
         document.getElementById('modal_btn').innerHTML = 'Voltar'
         document.getElementById('modal_btn').className = 'btn btn-success'
 
@@ -78,3 +102,36 @@ function cadastrarDespesa(){
     }
 }
 
+function carregaListaDespesas(){
+
+    let despesas = Array()
+
+    despesas = bd.recuperarTodosRegistros()
+
+    //selecionando o elemento tbody da tabela
+    var listaDespesas = document.getElementById('listaDespesas')
+
+    /*
+    <tr>
+        0 = <td>15/03/2018</td>
+        1 = <td>alimentação</td>
+            <td>Compras do mês</td>
+            <tD>444.75</td>
+    </tr>
+    */
+
+      //percorrer o array despesas, listando cada despesa de forma dinamica
+      despesas.forEach(function(d){
+
+        console.log(d)
+
+        //criando a linha (tr)
+        let linha = listaDespesas.insertRow()
+
+      //criar as colunas (td)
+      linha.insertCell(0).innerHTML = d.dia + '/' + d.mes + '/' + d.ano
+      linha.insertCell(1)
+      linha.insertCell(2)
+      linha.insertCell(3)
+    })
+}
